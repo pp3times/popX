@@ -16,6 +16,31 @@ function getCookie(name) {
   if (parts.length === 2) return parts.pop().split(";").shift();
 }
 
+function fetchingNewValue(firstTime) {
+  let time = "";
+  if (!firstTime) {
+    time = `t=${Math.floor(new Date().getTime() / 1000)}`;
+  }
+
+  fetch(`/api/getValue/getCurrentValue.php?${time}`)
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      updateCurrentValue(data);
+      fetchingNewValue(false);
+    });
+}
+
+function updateCurrentValue({ nuea, klang, esan, tai }) {
+  document.getElementById("demo_1").innerHTML = nuea;
+  document.getElementById("demo_2").innerHTML = klang;
+  document.getElementById("demo_3").innerHTML = esan;
+  document.getElementById("demo_4").innerHTML = tai;
+  // todo: update the total value ui
+  // document.getElementById("total").innerHTML = nuea + klang + esan + tai;
+}
+
 const touchCat = (action) => {
   action = action ? action : 0;
 
@@ -77,33 +102,13 @@ document.body.addEventListener("touchmove", function () {
   touchCat(TOUCH_CAT_UP);
 });
 
-const fetchingNewValue = () => {
-  const time = new Date().getTime();
-  fetch(`/api/getValue/getCurrentValue.php?t=${Math.floor(time / 1000)}`)
-    .then((res) => {
-      return res.json();
-    })
-    .then((data) => {
-      updateCurrentValue(data);
-      fetchingNewValue();
-    });
-};
-
-const updateCurrentValue = ({ nuea, klang, esan, tai }) => {
-  document.getElementById("demo_1").innerHTML = nuea;
-  document.getElementById("demo_2").innerHTML = klang;
-  document.getElementById("demo_3").innerHTML = esan;
-  document.getElementById("demo_4").innerHTML = tai;
-  // todo: update the total value ui
-  document.getElementById("total").innerHTML = nuea + klang + esan + tai;
-};
-
 const init = () => {
   count.innerText = score;
   img.src = getCat(score, 0);
+
+  fetchingNewValue(true);
 };
 
 window.onload = () => {
   init();
-  fetchingNewValue();
 };
