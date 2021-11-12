@@ -7,3 +7,5 @@
     $Tai = $row["tai"];
     print $Tai;
     $conn->close();
+    
+?>
