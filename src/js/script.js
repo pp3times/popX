@@ -77,7 +77,7 @@ function increaseScore() {
 
 const fetchingNewValue = () => {
   const time = new Date().getTime();
-  fetch(`/api/getValue/getCurrentValue.php?t=${Math.floor(time / 1000)}`)
+  fetch(`/src/api/getValue/getCurrentValue.php?t=${Math.floor(time / 1000)}`)
     .then((res) => {
       return res.json();
     })
