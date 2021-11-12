@@ -41,10 +41,10 @@
             ใต้: <a id="demo_4">0</a><br><br>
         </div>
         <select name="majar" id="majar">
-            <option value="0">[0] เหนือ</option> <!-- value 0 -->
-            <option value="1">[1] กลาง</option> <!-- value 1 -->
-            <option value="2">[2] อีสาน</option> <!-- value 3 -->
-            <option value="3">[3] ใต้</option> <!-- value 3 -->
+            <option value="nuea">[0] เหนือ</option> <!-- value 0 -->
+            <option value="klang">[1] กลาง</option> <!-- value 1 -->
+            <option value="esan">[2] อีสาน</option> <!-- value 3 -->
+            <option value="tai">[3] ใต้</option> <!-- value 3 -->
             <!-- <option value="political">political</option> value 4 -->
         </select>
         <!-- Option 1: Bootstrap Bundle with Popper -->

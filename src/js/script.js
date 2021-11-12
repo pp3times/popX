@@ -25,9 +25,15 @@ const touchCat = (action) => {
     count.innerHTML = score;
     document.cookie = `count=${score}`;
     const sb = document.querySelector("#majar");
-    const Index = sb.selectedIndex;
+    // const Index = sb.selectedIndex;
 
-    fetch(`/api/updateValue/UPDATE_ID_${Index}.php`)
+    fetch(`/api/updateValue/updateValue.php`, {
+      method: "POST",
+      body: JSON.stringify({
+        region: sb.value,
+        add: 1,
+      }),
+    })
       .then((res) => {
         return res.json();
       })
