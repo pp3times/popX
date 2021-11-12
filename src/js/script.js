@@ -1,11 +1,17 @@
 var img = document.getElementById("popcat1");
 var count = document.getElementById("score");
-var MyScore = 0;
-var score;
+var score = getCookie("count");
 
 const ASSET_PATH = "./assets/image";
 const SOUND_PATH = "./assets";
 const audio = new Audio(`${SOUND_PATH}/pop.mp3`);
+
+// https://stackoverflow.com/questions/10730362/get-cookie-by-name
+function getCookie(name) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(";").shift();
+}
 
 // mouseclick event
 document.body.addEventListener("mousedown", function () {
@@ -96,4 +102,7 @@ const updateCurrentValue = ({ nuea, klang, esan, tai }) => {
   document.getElementById("total").innerHTML = nuea + klang + esan + tai;
 };
 
-fetchingNewValue();
+window.onload = () => {
+  count.innerText = score;
+  fetchingNewValue();
+};

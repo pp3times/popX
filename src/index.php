@@ -30,22 +30,7 @@
     <div class="container">
         <h1>popX</h1>
         <br><br>
-        <?php
-        if (!isset($_COOKIE["count"])) {
-            $cookie_name = "count";
-            $cookie_value = "0";
-            setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/"); // 86400 = 1 day
-            // header("Location:profile.php");
-            echo "<script>var score = 0;</script>";
-        } else {
-            $cookie_value = $_COOKIE["count"];
-            echo "<script>var score = '" . $cookie_value . "';</script>";
-        }
-
-        ?>
-        <p id="score">
-          <?= $cookie_value ?>
-        </p>
+        <p id="score">0</p>
         </br></br>
         <!-- <img src="maincat1.png" alt="Invalid" id="popcat1" height="500x"> -->
         <img src="./assets/image/maincat1.png" alt="Invalid" id="popcat1" height="600px">
