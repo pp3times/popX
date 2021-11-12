@@ -72,7 +72,6 @@ const touchCat = (function () {
     const finalScore = nextScore;
     nextScore = 0;
 
-    console.log(`update score! ${finalScore}`);
     if (finalScore !== 0) {
       fetch(`/api/updateValue/updateValue.php`, {
         method: "POST",
@@ -80,15 +79,11 @@ const touchCat = (function () {
           region: currentRegion,
           add: finalScore,
         }),
-      })
-        .then((res) => {
-          return res.json();
-        })
-        .then((data) => {
-          if (data == -1) {
-            console.error("Hacker!!!!!!!!!!!!!!!!!!!!!!!");
-          }
-        });
+      }).then((data) => {
+        if (data == -1) {
+          console.error("Hacker!!!!!!!!!!!!!!!!!!!!!!!");
+        }
+      });
     }
   };
 
