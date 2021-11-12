@@ -3,14 +3,14 @@ import { sleep } from "k6";
 
 const PRODUCTION_URL = "http://inspired-it.th1.proen.cloud";
 
-const GET_VALUE_0 = `${PRODUCTION_URL}/src/getValue/getValue_Klang.php`;
-const GET_VALUE_1 = `${PRODUCTION_URL}/src/getValue/getValue_Esan.php`;
-const GET_VALUE_2 = `${PRODUCTION_URL}/src/getValue/getValue_Nuea.php`;
-const GET_VALUE_3 = `${PRODUCTION_URL}/src/getValue/getValue_Tai.php`;
-const UPDATE_ID_0 = `${PRODUCTION_URL}/src/updateValue/UPDATE_ID_0.php`;
-const UPDATE_ID_1 = `${PRODUCTION_URL}/src/updateValue/UPDATE_ID_1.php`;
-const UPDATE_ID_2 = `${PRODUCTION_URL}/src/updateValue/UPDATE_ID_2.php`;
-const UPDATE_ID_3 = `${PRODUCTION_URL}/src/updateValue/UPDATE_ID_3.php`;
+const GET_VALUE_0 = `${PRODUCTION_URL}/api/getValue/getValue_Klang.php`;
+const GET_VALUE_1 = `${PRODUCTION_URL}/api/getValue/getValue_Esan.php`;
+const GET_VALUE_2 = `${PRODUCTION_URL}/api/getValue/getValue_Nuea.php`;
+const GET_VALUE_3 = `${PRODUCTION_URL}/api/getValue/getValue_Tai.php`;
+const UPDATE_ID_0 = `${PRODUCTION_URL}/api/updateValue/UPDATE_ID_0.php`;
+const UPDATE_ID_1 = `${PRODUCTION_URL}/api/updateValue/UPDATE_ID_1.php`;
+const UPDATE_ID_2 = `${PRODUCTION_URL}/api/updateValue/UPDATE_ID_2.php`;
+const UPDATE_ID_3 = `${PRODUCTION_URL}/api/updateValue/UPDATE_ID_3.php`;
 
 export const options = {
   stages: [
@@ -22,6 +22,7 @@ export const options = {
 
 const testLoadWeb = () => {
   const response = http.batch([
+    ["GET", PRODUCTION_URL, null, { tags: { ctype: "html" } }],
     ["GET", GET_VALUE_0, null, { tags: { ctype: "html" } }],
     ["GET", GET_VALUE_1, null, { tags: { ctype: "html" } }],
     ["GET", GET_VALUE_2, null, { tags: { ctype: "html" } }],
