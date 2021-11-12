@@ -1,5 +1,6 @@
-var img = document.getElementById("popcat1");
-var count = document.getElementById("score");
+const img = document.getElementById("popcat1");
+const count = document.getElementById("score");
+const sb = document.querySelector("#majar");
 var score = getCookie("count");
 
 const ASSET_PATH = "./assets/image";
@@ -27,55 +28,117 @@ function fetchingNewValue(firstTime) {
       return res.json();
     })
     .then((data) => {
-      updateCurrentValue(data);
+      updateDisplayValue(data);
       fetchingNewValue(false);
     });
 }
 
-function updateCurrentValue({ nuea, klang, esan, tai }) {
-  document.getElementById("demo_1").innerHTML = nuea;
-  document.getElementById("demo_2").innerHTML = klang;
-  document.getElementById("demo_3").innerHTML = esan;
-  document.getElementById("demo_4").innerHTML = tai;
+function getSelectionRegion() {
+  return sb.value;
+}
+
+// I know, it suck
+function getNueaScore() {
+  return document.getElementById("demo_1").innerText * 1;
+}
+
+function getKlangScore() {
+  return document.getElementById("demo_2").innerText * 1;
+}
+
+function getEsanScore() {
+  return document.getElementById("demo_3").innerText * 1;
+}
+
+function getTaiScore() {
+  return document.getElementById("demo_4").innerText * 1;
+}
+
+function updateDisplayValue({ nuea, klang, esan, tai }) {
+  if (nuea) document.getElementById("demo_1").innerHTML = nuea;
+  if (klang) document.getElementById("demo_2").innerHTML = klang;
+  if (esan) document.getElementById("demo_3").innerHTML = esan;
+  if (tai) document.getElementById("demo_4").innerHTML = tai;
   // todo: update the total value ui
   // document.getElementById("total").innerHTML = nuea + klang + esan + tai;
 }
 
-const touchCat = (action) => {
-  action = action ? action : 0;
+const touchCat = (function () {
+  let nextScore = 0;
+  let currentRegion = "";
 
   // inner arrow function
-  const increaseScore = () => {
-    score++;
-    count.innerHTML = score;
-    document.cookie = `count=${score}`;
-    const sb = document.querySelector("#majar");
-    // const Index = sb.selectedIndex;
+  const updateRegionScore = () => {
+    const finalScore = nextScore;
+    nextScore = 0;
 
-    fetch(`/api/updateValue/updateValue.php`, {
-      method: "POST",
-      body: JSON.stringify({
-        region: sb.value,
-        add: 1,
-      }),
-    })
-      .then((res) => {
-        return res.json();
+    console.log(`update score! ${finalScore}`);
+    if (finalScore !== 0) {
+      fetch(`/api/updateValue/updateValue.php`, {
+        method: "POST",
+        body: JSON.stringify({
+          region: currentRegion,
+          add: finalScore,
+        }),
       })
-      .then((data) => {
-        console.log(data);
-      });
+        .then((res) => {
+          return res.json();
+        })
+        .then((data) => {
+          if (data == -1) {
+            console.error("Hacker!!!!!!!!!!!!!!!!!!!!!!!");
+          }
+        });
+    }
   };
 
-  // if we touch cat
-  if (action == TOUCH_CAT_DOWN) increaseScore();
+  const increaseScore = () => {
+    nextScore++;
+    score++;
+    count.innerHTML = score;
 
-  // update cat image
-  img.src = getCat(score, action);
+    const selectRegion = getSelectionRegion();
+    if (currentRegion == "") {
+      currentRegion = selectRegion;
+    } else if (selectRegion !== currentRegion) {
+      updateRegionScore();
+      currentRegion = selectRegion;
+    }
 
-  // check if we touch cat?
-  if (action == TOUCH_CAT_DOWN || action == TOUCH_CAT_UP) audio.play();
-};
+    document.cookie = `count=${score}`;
+
+    let currentScore = 0;
+    if (currentRegion === "nuea") {
+      currentScore = getNueaScore();
+    } else if (currentRegion === "klang") {
+      currentScore = getKlangScore();
+    } else if (currentRegion === "esan") {
+      currentScore = getEsanScore();
+    } else if (currentRegion === "tai") {
+      currentScore = getTaiScore();
+    }
+
+    updateDisplayValue({ [currentRegion]: currentScore + 1 });
+    console.log(nextScore, currentRegion, currentScore);
+  };
+
+  const softlyTouch = (action) => {
+    // update cat image
+    img.src = getCat(score, action);
+    // check if we touch cat?
+    if (action == TOUCH_CAT_DOWN || action == TOUCH_CAT_UP) audio.play();
+    // if we touch cat softly hand down
+    if (action == TOUCH_CAT_DOWN) increaseScore();
+  };
+
+  setInterval(() => {
+    updateRegionScore();
+  }, 3000);
+
+  return {
+    softlyTouch,
+  };
+})();
 
 const getCat = (score, action) => {
   if (score > 100) {
@@ -92,20 +155,20 @@ const getCat = (score, action) => {
 
 // mouseclick event
 document.body.addEventListener("mousedown", function () {
-  touchCat(TOUCH_CAT_DOWN);
+  touchCat.softlyTouch(TOUCH_CAT_DOWN);
 });
 
 document.body.addEventListener("mouseup", function () {
-  touchCat(TOUCH_CAT_UP);
+  touchCat.softlyTouch(TOUCH_CAT_UP);
 });
 
 // touch event
 document.body.addEventListener("touchstart", function () {
-  touchCat(TOUCH_CAT_DOWN);
+  touchCat.softlyTouch(TOUCH_CAT_DOWN);
 });
 
 document.body.addEventListener("touchmove", function () {
-  touchCat(TOUCH_CAT_UP);
+  touchCat.softlyTouch(TOUCH_CAT_UP);
 });
 
 const init = () => {
