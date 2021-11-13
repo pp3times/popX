@@ -90,6 +90,7 @@ const touchCat = (function () {
       }).then((data) => {
         if (data == -1) {
           console.error("Hacker!!!!!!!!!!!!!!!!!!!!!!!");
+          document.getElementById("is-hacker").style.display = "block";
         }
       });
     }

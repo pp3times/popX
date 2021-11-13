@@ -97,6 +97,8 @@ session_start();
             <option value="tai">ใต้</option>
         </select>
     </label>
+    <span class="text-red-600" style="display: none" id="is-hacker">Hacker!</span>
+    
     <script src="./js/script.js"></script>
     <script>
 
