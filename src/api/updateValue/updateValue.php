@@ -24,8 +24,9 @@ if (isset($data->region) && isset($data->add)) {
         $sql = "UPDATE `popcat` SET `$region` = `$region` + $add WHERE `popcat` = 1";
         $conn->query($sql);
         $conn->close();
+        echo 1;
     } else {
-        echo 0;
+        echo -1;
     }
 } else {
     echo 0;
