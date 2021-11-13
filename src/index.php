@@ -90,7 +90,7 @@ session_start();
     </div>
     <label class="block text-left appearance-none outline-none text-gray-800" style="max-width: 400px">
         <span class="text-gray-700">มาจากภาคไหนเอ่ย ( แบ่งแบบสี่ภูมิภาค ref : <a target="_" class="text-blue-500" href="https://th.wikipedia.org/wiki/%E0%B8%A0%E0%B8%B9%E0%B8%A1%E0%B8%B4%E0%B8%A0%E0%B8%B2%E0%B8%84%E0%B8%82%E0%B8%AD%E0%B8%87%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B9%80%E0%B8%97%E0%B8%A8%E0%B9%84%E0%B8%97%E0%B8%A2">Click</a> )</span>
-        <select class="form-select block w-full mt-1">
+        <select class="form-select block w-full mt-1" id="select-region">
             <option value="nuea">เหนือ</option>
             <option value="klang">กลาง</option>
             <option value="esan">อีสาน</option>

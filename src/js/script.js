@@ -1,6 +1,6 @@
 const img = document.getElementById("imgClickAndChange");
 const count = document.getElementById("score");
-const sb = document.querySelector("#majar");
+const sb = document.querySelector("#select-region");
 var score = getCookie("count");
 
 const ASSET_PATH = "./assets/image";
@@ -179,11 +179,9 @@ document.body.addEventListener("touchmove", function () {
 
 const init = () => {
   count.innerText = score;
-  img.src = getCat(score, 0);
-
   fetchingNewValue(true);
 };
 
-window.onload = () => {
+(function () {
   init();
-};
+})();
