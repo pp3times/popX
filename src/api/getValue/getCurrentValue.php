@@ -2,7 +2,7 @@
 
 require './../conn.php';
 
-$MAX_GRAND_OPENING = 10;
+$MAX_GRAND_OPENING = 100000;
 
 // set php runtime to unlimited
 set_time_limit(0);

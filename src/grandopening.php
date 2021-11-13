@@ -1,7 +1,7 @@
 <?php
     require "./api/conn.php";
 
-    $MAX_GRAND_OPENING = 10;
+    $MAX_GRAND_OPENING = 100000;
 
     $sql = "SELECT * FROM popcat WHERE popcat = 1";
     
