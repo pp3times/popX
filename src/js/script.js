@@ -1,4 +1,4 @@
-const img = document.getElementById("popcat1");
+const img = document.getElementById("imgClickAndChange");
 const count = document.getElementById("score");
 const sb = document.querySelector("#majar");
 var score = getCookie("count");
@@ -31,6 +31,14 @@ function fetchingNewValue(firstTime) {
       updateDisplayValue(data);
       fetchingNewValue(false);
     });
+}
+
+function changeImage() {
+  const catPath = `assets/icon/cat${Math.floor(
+    Math.random() * (9 - 1) + 1
+  )}.svg`;
+  img.src = catPath;
+  audio.play();
 }
 
 function getSelectionRegion() {
@@ -119,9 +127,12 @@ const touchCat = (function () {
 
   const softlyTouch = (action) => {
     // update cat image
-    img.src = getCat(score, action);
+    // img.src = getCat(score, action);
     // check if we touch cat?
-    if (action == TOUCH_CAT_DOWN || action == TOUCH_CAT_UP) audio.play();
+    // if (action == TOUCH_CAT_DOWN || action == TOUCH_CAT_UP) audio.play();
+
+    changeImage();
+
     // if we touch cat softly hand down
     if (action == TOUCH_CAT_DOWN) increaseScore();
   };
@@ -135,18 +146,18 @@ const touchCat = (function () {
   };
 })();
 
-const getCat = (score, action) => {
-  if (score > 100) {
-    return `${ASSET_PATH}/popcat${action || 2}.png`;
-  } else if (score > 80) {
-    return `${ASSET_PATH}/2vaccine${action || 2}.png`;
-  } else if (score > 50) {
-    return `${ASSET_PATH}/catvaccine${action || 2}.png`;
-  } else if (score > 30) {
-    return `${ASSET_PATH}/catmask${action || 2}.png`;
-  }
-  return `${ASSET_PATH}/maincat${action || 2}.png`;
-};
+// const getCat = (score, action) => {
+//   if (score > 100) {
+//     return `${ASSET_PATH}/popcat${action || 2}.png`;
+//   } else if (score > 80) {
+//     return `${ASSET_PATH}/2vaccine${action || 2}.png`;
+//   } else if (score > 50) {
+//     return `${ASSET_PATH}/catvaccine${action || 2}.png`;
+//   } else if (score > 30) {
+//     return `${ASSET_PATH}/catmask${action || 2}.png`;
+//   }
+//   return `${ASSET_PATH}/maincat${action || 2}.png`;
+// };
 
 // mouseclick event
 document.body.addEventListener("mousedown", function () {
