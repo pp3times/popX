@@ -111,12 +111,6 @@ session_start();
     // The strings to morph between. You can change these to anything you want!
     const texts = [
       "Inspired IT65",
-      "By",
-      "ITx",
-      "KMITL",
-      "Opening",
-      "Click",
-      "more!"
     ];
 
     // Controls the speed of morphing.
