@@ -32,7 +32,7 @@ function fetchingNewValue(firstTime) {
       updateDisplayValue(data);
 
       if (data.isFinished) {
-        window.location.replace("/grandopening");
+        window.location.replace("/grandopening.php");
       }
 
       fetchingNewValue(false);
